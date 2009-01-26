@@ -4,6 +4,5 @@ h2. OpenSER Web based Monitor
 
 This project is a web-based monitor of VoIP peers.
 
-  mongrel_rails start -d -p 8001
-  
+Instructions at "ElectroSystems Web Site":http://www.e-electrosystems.com/modules/custom/page_projects.php?lang=english  
 
