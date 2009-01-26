@@ -1,0 +1,93 @@
+#!/usr/bin/env /opt/opensermon/script/runner
+
+require 'pp'
+
+arrUsersToNotify = []
+arrUsersToNotifyOnline = []
+
+puts ""
+puts "Current Time is "+Time.now.to_s
+puts "Offline Grace Timeout Period is "+OPENSERMON_CONFIG['settings']['wait_seconds'].to_i.to_s+" seconds."
+puts ""
+
+Cuenta.find(:all, :conditions => ['monitor = ?', true]).each do |cuenta|
+  puts "=" * 75
+  puts "Verifying #{cuenta.usuario} ..."
+  current_status = !Location.find(:first, :conditions => ['username = ?', cuenta.usuario]).nil?
+  puts "STATUS LAST: "+((cuenta.status) ? "Online" : "Offline")+" since "+((cuenta.status_time.nil?)? "[no timestamp]" : cuenta.status_time.to_s)
+  puts "STATUS CURR: "+((current_status) ? "Online" : "Offline")
+  
+  if current_status
+    if cuenta.status
+      puts "Still online, no changes."
+      cuenta.status_time = Time.now if cuenta.status_time.nil?
+    else
+      puts "Went online again, setting it to online and updating the status time."
+      cuenta.status_time = Time.now
+	  arrUsersToNotifyOnline << cuenta.usuario
+    end
+    cuenta.status = true
+    cuenta.status_notification_sent = false
+  else
+    if cuenta.status
+      puts "Status went off line, setting to offline, and updating the status time."
+      cuenta.status = false
+      cuenta.status_time = Time.now
+      cuenta.status_notification_sent = false
+    end
+    if not cuenta.status_notification_sent
+      puts "No notification has been sent, verifying the time out..."
+	  cuenta.status_time ||= Time.now
+      if (Time.now - cuenta.status_time) > (OPENSERMON_CONFIG['settings']['wait_seconds'].to_i)
+        puts "Offline timeout exceeded, sending notification."
+        arrUsersToNotify << cuenta.usuario
+        cuenta.status_notification_sent = true
+      else
+        puts "Offline grace timeout hasn't yet been exceeded. Will wait until next iteration."
+      end
+    else
+      puts "Offline notification has already been sent for this account."
+    end
+  end
+  cuenta.save!
+  puts ""
+end
+
+# Notify downtimes
+if arrUsersToNotify.length > 0
+	puts "There are downtime notifications to be sent. Sending email."
+	puts "Notifying administrator about #{arrUsersToNotify.to_sentence} downtime"
+	Notifier.deliver_monitor(arrUsersToNotify)
+	arrUsersToNotify.each do |who|
+		whoobj = Cuenta.find(:first, :conditions => ['usuario = ?', who])
+		if whoobj.notificar_usuario
+			puts "Client [#{whoobj.nombre}]: Notifying downtime ..."
+			Notifier.deliver_notificar_usuario(who)
+		else
+			puts "Client [#{whoobj.nombre}]: Downtime Notification omitted."
+		end
+	end
+else
+	puts "No changes, no downtime email will be sent."
+end
+
+# Notify back-onlines
+if arrUsersToNotifyOnline.length > 0
+	puts "There are back-online notifications to be sent. Sending email."
+	puts "Notifying administrator about #{arrUsersToNotifyOnline.to_sentence} back-online"
+	Notifier.deliver_monitor_online(arrUsersToNotifyOnline)
+	arrUsersToNotifyOnline.each do |who|
+		whoobj = Cuenta.find(:first, :conditions => ['usuario = ?', who])
+		if whoobj.notificar_usuario
+			puts "Client [#{whoobj.nombre}]: Notifying back-online ..."
+			Notifier.deliver_notificar_online_usuario(who)
+		else
+			puts "Client [#{whoobj.nombre}]: Back-Online Notification omitted."
+		end
+	end
+else
+	puts "No changes, no back-online email will be sent."
+end
+
+puts ""
+

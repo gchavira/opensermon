@@ -1,0 +1,47 @@
+<h1>Mostrando Peer</h1>
+
+<fieldset>
+  <legend>Peer</legend>
+	<p>
+	  <b>Peer:</b>
+	  <%=h @cuenta.usuario %>
+	</p>
+	
+	<p>
+	  <b>Nombre:</b>
+	  <%=h @cuenta.nombre %>
+	</p>
+	
+	<p>
+	  <b>Contacto:</b>
+	  <%=h @cuenta.contacto %>
+	</p>
+	
+	<p>
+	  <b>Telefono:</b>
+	  <%=h @cuenta.telefono %>
+	</p>
+	
+	<p>
+	  <b>Email:</b>
+	  <%=h @cuenta.email %>
+	</p>
+	
+	<p>
+	  <b>Monitor:</b>
+	  <%=h (@cuenta.monitor) ? 'Si' : 'No' %>
+	</p>
+	
+	<p>
+	  <b>Notificar Cliente:</b>
+	  <%=h (@cuenta.notificar_usuario) ? 'Si' : 'No' %>
+	</p>
+	
+	<p>
+	  <b>Descripci&oacute;n:</b>
+	  <%=h @cuenta.descripcion %>
+	</p>
+</fieldset>
+
+<%= link_to 'Editar', edit_cuenta_path(@cuenta) %> |
+<%= link_to 'Regresar', cuentas_path %>

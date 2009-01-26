@@ -1,0 +1,171 @@
+body { background-color: #fff; color: #333; }
+
+body, p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size:   13px;
+  line-height: 18px;
+  margin:0px;
+  padding:0px;
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+a { color: #000; }
+a:visited { color: #666; }
+a:hover { color: #fff; background-color:#000; }
+
+.fieldWithErrors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#errorExplanation {
+  width: 400px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 5px;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+div.uploadStatus {
+  margin: 5px;
+}
+
+div.progressBar {
+  margin: 5px;
+}
+
+div.progressBar div.border {
+  background-color: #fff;
+  border: 1px solid gray;
+  width: 100%;
+}
+
+div.progressBar div.background {
+  background-color: #333;
+  height: 18px;
+  width: 0%;
+}
+
+/* Estilo de Tablas */
+
+div#onlines {
+}
+
+div#conexiones {
+	
+}
+
+table.general {
+	margin:0px;
+	padding:0px;
+	border:1px solid #111133;
+}
+ 
+table.general thead {
+}
+
+table.general tr.even {
+	background-color:#F0F0FF;
+}
+ 
+table.general tr.odd {
+	background-color:#FFFFFF;
+}
+ 
+table.general th {
+	font-size:12px;
+	font-weight:bold;
+	color:white;
+	background-color:#000033;
+	text-align:left;
+	padding:2px 7px 2px 2px;
+}
+
+table.general tbody {
+	overflow-x:hidden;
+	overflow-y:auto;
+}
+ 
+table.general td {
+	font-size:9px;
+	padding:2px 7px 2px 2px;
+	border-collapse:collapse;
+}
+
+fieldset {
+	width:400px;
+	background-color:#F0F0FF;
+	color:#333399;
+	padding:7px;
+}
+
+
+body {
+	background-color:#333366;
+	color:white;
+}
+
+div#header {
+	padding:15px;
+}
+ 
+div#header h1 {
+	font-size:32px;
+	font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+div#wrapper {
+	color:#333366;
+	background-color:white;
+	padding:10px;
+}
+div#footer {
+	font-size:9px;
+	font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
+	padding-left:10px;
+	padding-top:20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

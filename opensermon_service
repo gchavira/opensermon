@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+
+# Copyright (c) 2008 ElectroSystems
+# All rights reserved.
+#
+# Author: Gabriel Medina, 2008
+#
+
+# chkconfig: 2345 55 25
+# description: Manages the OpenSERMon web server interface
+
+. /etc/init.d/functions
+
+# Start the service OpenSERMon
+start() {
+        # initlog -c "echo -n Starting OpenSERMon server: "
+		TMPMSGS=`mktemp`
+        echo -n $"Starting OpenSERMon server: "
+        cd /opt/opensermon
+		/usr/local/bin/mongrel_rails start -d -p 8001 -P /var/run/opensermon.pid 1>$TMPMSGS 2>&1
+        success $"OpenSERMon server startup"
+		touch /var/lock/subsys/opensermon
+		echo; cat $TMPMSGS
+		rm -f $TMPMSGS
+        echo
+}
+
+# Restart the service OpenSERMon
+stop() {
+        # initlog -c "echo -n Stopping OpenSERMon server: "
+		TMPMSGS=`mktemp`
+        echo -n "Stopping OpenSERMon server: "
+        cd /opt/opensermon
+		/usr/local/bin/mongrel_rails stop -P /var/run/opensermon.pid 1>$TMPMSGS 2>&1
+        success $"OpenSERMon server stop"
+		rm -f /var/lock/subsys/opensermon
+		echo; cat $TMPMSGS
+		rm -f $TMPMSGS
+        echo
+}
+
+status_opensermon() {
+	RES=`ps -o command -C mongrel_rails | grep opensermon.pid`
+	PLC=`ps -o command -C mongrel_rails | grep opensermon.pid | wc -l`
+	if [ $PLC -ne 0 ]; then
+		echo $RES
+		echo "OpenSERMon is running ..."
+	else
+		echo "OpenSERMon is not running ..."
+	fi
+}
+
+### main logic ###
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  status)
+        status_opensermon
+        ;;
+  restart|reload|condrestart)
+        stop
+        start
+        ;;
+  *)
+        echo $"Usage: $0 {start|stop|restart|reload|status}"
+        exit 1
+esac
+
+exit 0
+
+
+

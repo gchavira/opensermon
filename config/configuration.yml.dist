@@ -1,0 +1,16 @@
+notifications:
+  emails: mail_one@sample.com, mail_two@sample.com, mail_three@sample.com
+  from: webmailer@sample.com
+  subject: Sample OpenSER Monitor Alert
+
+mailer_account:
+  address: mail.sample.com
+  port: 30
+  domain: sample.com
+  username: webmailer@sample.com
+  password: <your password>
+
+settings:
+  wait_seconds: 10
+
+

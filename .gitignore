@@ -1,0 +1,9 @@
+db/*.sqlite3
+log/*.log
+tmp/**/*
+config/configuration.yml
+config/database.yml
+config/mailer.yml
+
+
+

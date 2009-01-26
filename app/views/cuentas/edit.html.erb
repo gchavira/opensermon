@@ -1,0 +1,55 @@
+<h1>Editando Cuenta</h1>
+
+<%= error_messages_for :cuenta %>
+
+<% form_for(@cuenta) do |f| %>
+<fieldset>
+  <legend>Cuenta</legend>
+  <p>
+    <b>Peer</b><br />
+    <%= f.text_field :usuario %>
+  </p>
+
+  <p>
+    <b>Nombre</b><br />
+    <%= f.text_field :nombre %>
+  </p>
+
+  <p>
+    <b>Contacto</b><br />
+    <%= f.text_field :contacto %>
+  </p>
+
+  <p>
+    <b>Telefono</b><br />
+    <%= f.text_field :telefono %>
+  </p>
+
+  <p>
+    <b>Email</b><br />
+    <%= f.text_field :email %>
+  </p>
+
+  <p>
+    <b>Monitor</b><br />
+    <%= f.check_box :monitor %>
+  </p>
+
+  <p>
+    <b>Notificar Cliente</b><br />
+    <%= f.check_box :notificar_usuario %>
+  </p>
+
+  <p>
+    <b>Descripci&oacute;n</b><br />
+    <%= f.text_area :descripcion %>
+  </p>
+
+  <p>
+    <%= f.submit "Actualizar" %>
+  </p>
+</fieldset>
+<% end %>
+
+<%= link_to 'Mostrar', @cuenta %> |
+<%= link_to 'Regresar', cuentas_path %>

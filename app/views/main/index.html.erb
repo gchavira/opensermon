@@ -1,0 +1,78 @@
+<h2>Conexiones</h2>
+<a href="#" onclick="javascript:Effect.toggle('onlines', 'blind'); return false;">Mostrar Todas Las Conexiones en L&iacute;nea</a>
+<div id="onlines" style="display:none;">
+	<table class="general" border="0" cellspacing="0" cellpadding="0">
+		<thead>
+			<tr>
+				<th>Peer</th>
+				<th>Conexi&oacute;n Iniciada</th>
+				<th>Validez</th>
+				<th>Remoto</th>
+				<th>Agente</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody style="height:350px;">
+			<% @online.each do |online| %>
+			<tr class="<%= cycle("even", "odd") %>">
+				<td><%= online.username %></td>
+				<td><%= online.last_modified %></td>
+				<td><%= online.validez %></td>
+				<td><%= online.contact.split('@')[1] %></td>
+				<td><%= online.user_agent %></td>
+				<td>&nbsp;</td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+
+<h2>Monitores</h2>
+<% @cuentas.each do |cuenta| %>
+	<div id="cuenta_tt_<%= cuenta.id %>" style='display:none; width:240px; background-color:#f0f0ff; color:#333399; padding:5px; border:2px solid #000033; font-size:9px;'>
+		<h1 style='border-bottom:1px solid #333399'><%= cuenta.usuario %></h1>
+		<strong>Nombre:</strong> <%= cuenta.nombre %><br />
+		<strong>Contacto:</strong> <%= cuenta.contacto %><br />
+		<strong>Tel&eacute;fono:</strong> <%= cuenta.telefono %><br />
+		<strong>Email:</strong> <%= cuenta.email %><br />
+		<strong>Status:</strong> <%= cuenta.status_str %><br />
+		<br />
+		<div style='border:2px solid #000033; background-color:white; color: #333399; padding:5px;'>
+			<%= cuenta.descripcion %>
+		</div>
+	</div>
+<% end %>
+<div id="conexiones">
+	<table class="general" border="0" cellspacing="0" cellpadding="0">
+		<thead>
+			<tr>
+				<th>Peer</th>
+				<th>Nombre</th>
+				<th>Monitor</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @cuentas.each do |cuenta| %>
+			<tr class="<%= cycle("even", "odd") %>" id="cuenta_<%= cuenta.id %>">
+				<td><%= cuenta.usuario %></td>
+				<td><%= cuenta.nombre %></td>
+				<td><%= cuenta.monitor_str %></td>
+				<td><%= cuenta.status_str %></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+
+<h2>Peers</h2>
+<%= link_to("Editar Peers a Monitorear", cuentas_path) %>
+
+<script type="text/javascript">
+	<!--
+	<% @cuentas.each do |cuenta| %>
+		var mytt_<%= cuenta.id %> = new Tooltip('cuenta_<%= cuenta.id %>', 'cuenta_tt_<%= cuenta.id %>');
+	<% end %>
+	// -->
+</script>
+

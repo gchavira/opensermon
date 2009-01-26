@@ -1,0 +1,37 @@
+<h1>Listado De Cuentas</h1>
+
+<table class="general" border="0" cellspacing="0" cellpadding="0">
+	<thead>
+		<tr>
+			<th>Peer</th>
+			<th>Nombre</th>
+			<th>Contacto</th>
+			<th>Telefono</th>
+			<th>Email</th>
+			<th>Monitor</th>
+			<th>Notificar Cliente</th>
+			<th colspan="3">Acciones</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% for cuenta in @cuentas %>
+		<tr class="<%= cycle('even', 'odd') %>">
+			<td><%=h cuenta.usuario %></td>
+			<td><%=h cuenta.nombre %></td>
+			<td><%=h cuenta.contacto %></td>
+			<td><%=h cuenta.telefono %></td>
+			<td><%=h cuenta.email %></td>
+			<td><%=h (cuenta.monitor) ? 'Si' : 'No' %></td>
+			<td><%=h (cuenta.notificar_usuario) ? 'Si' : 'No' %></td>
+			<td><%= link_to 'Mostrar', cuenta %></td>
+			<td><%= link_to 'Editar', edit_cuenta_path(cuenta) %></td>
+			<td><%= link_to 'Eliminar', cuenta, :confirm => 'Esta seguro?', :method => :delete %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<br />
+
+<%= link_to 'Nuevo Peer', new_cuenta_path %> |
+<%= link_to 'Regresar a Monitoreo', :controller => 'main', :action => 'index' %>

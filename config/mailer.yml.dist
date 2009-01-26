@@ -1,0 +1,6 @@
+--- 
+  :address: smtp.gmail.com
+  :port: 587
+  :user_name: webmailer@sample.com
+  :password: <your password>
+  :authentication: :plain

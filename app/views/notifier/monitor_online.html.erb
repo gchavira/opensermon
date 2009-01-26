@@ -1,0 +1,15 @@
+<h1><%= OPENSERMON_CONFIG['notifications']['subject'] %> - Back Online</h1>
+<p>
+	Los siguientes peers se han RECONECTADO al servidor:
+</p>
+<% @cuentas.each do |cuenta| %>
+<h2><%= cuenta.usuario %></h2>
+<p>
+<strong>Nombre:</strong> <%= cuenta.nombre %><br />
+<strong>Contacto:</strong> <%= cuenta.contacto %><br />
+<strong>Telefono:</strong> <%= cuenta.telefono %><br />
+<strong>E-Mail:</strong> <%= cuenta.email %><br />
+<br />
+</p>
+<% end %>
+
